@@ -35,7 +35,6 @@ classDiagram
         +int id
         +String nome
         +String posto
-        +boolean autorizado
         +cadastrar()
         +atualizar()
         +remover()
@@ -59,6 +58,7 @@ classDiagram
     class Administrador {
         +int id
         +String nome
+        +String cargo
         +cadastrarGuarda()
         +atualizarGuarda()
         +removerGuarda()
@@ -105,7 +105,6 @@ erDiagram
         int id PK
         varchar nome
         varchar posto
-        boolean autorizado
     }
 
     TRANSFERENCIAS {
@@ -119,6 +118,7 @@ erDiagram
     ADMINISTRADORES {
         int id PK
         varchar nome
+        varchar cargo
     }
 
     PRISIONEIROS ||--o{ PRISIONEIROCRIMES : "comete"

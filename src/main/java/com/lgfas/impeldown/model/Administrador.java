@@ -1,24 +1,23 @@
 package com.lgfas.impeldown.model;
 
-import com.lgfas.impeldown.model.enums.Posto;
+import com.lgfas.impeldown.model.enums.Cargo;
 import jakarta.persistence.*;
 
-@Entity(name = "tb_guarda")
-public class Guarda {
+@Entity(name = "tb_administrador")
+public class Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
     private String nome;
-    private Posto posto;
+    private Cargo cargo;
 
-    public Guarda() {
+    public Administrador() {
     }
 
-    public Guarda(Long id, String nome, Posto posto) {
+    public Administrador(Long id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.posto = posto;
     }
 
     public Long getId() {
@@ -37,11 +36,11 @@ public class Guarda {
         this.nome = nome;
     }
 
-    public Posto getPosto() {
-        return posto;
+    public Cargo getCargo() {
+        return cargo;
     }
 
-    public void setPosto(Posto posto) {
-        this.posto = posto;
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 }
