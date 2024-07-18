@@ -13,8 +13,7 @@ public class Crime {
     public Crime() {
     }
 
-    public Crime(Long id, String descricao) {
-        this.id = id;
+    public Crime(String descricao) {
         this.descricao = descricao;
     }
 

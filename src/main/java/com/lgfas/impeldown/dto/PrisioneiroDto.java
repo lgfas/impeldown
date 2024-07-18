@@ -1,52 +1,27 @@
-package com.lgfas.impeldown.model;
+package com.lgfas.impeldown.dto;
 
+import com.lgfas.impeldown.model.Crime;
 import com.lgfas.impeldown.model.enums.NivelPerigo;
 import com.lgfas.impeldown.model.enums.NivelSeguranca;
-import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity(name = "tb_prisioneiro")
-public class Prisioneiro {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class PrisioneiroDto {
     private String nome;
     private Integer idade;
-    @Enumerated(EnumType.STRING)
     private NivelPerigo nivelPerigo;
-    @OneToMany
     private List<Crime> crimes;
-    @Enumerated(EnumType.STRING)
     private NivelSeguranca nivelSeguranca;
 
-    public Prisioneiro() {
+    public PrisioneiroDto() {
     }
 
-    public Prisioneiro(Long id, String nome, Integer idade, NivelPerigo nivelPerigo, List<Crime> crimes, NivelSeguranca nivelSeguranca) {
-        this.id = id;
+    public PrisioneiroDto(String nome, Integer idade, NivelPerigo nivelPerigo, List<Crime> crimes, NivelSeguranca nivelSeguranca) {
         this.nome = nome;
         this.idade = idade;
         this.nivelPerigo = nivelPerigo;
         this.crimes = crimes;
         this.nivelSeguranca = nivelSeguranca;
-    }
-
-    public Prisioneiro(String nome, Integer idade, NivelPerigo nivelPerigo, List<Crime> crimes, NivelSeguranca nivelSeguranca) {
-        this.nome = nome;
-        this.idade = idade;
-        this.nivelPerigo = nivelPerigo;
-        this.crimes = crimes;
-        this.nivelSeguranca = nivelSeguranca;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
