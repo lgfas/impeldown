@@ -2,7 +2,13 @@ package com.lgfas.impeldown.model;
 
 import com.lgfas.impeldown.model.enums.Posto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter @Setter @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "tb_guarda")
 public class Guarda {
     @Id
@@ -12,36 +18,8 @@ public class Guarda {
     private String nome;
     private Posto posto;
 
-    public Guarda() {
-    }
-
-    public Guarda(Long id, String nome, Posto posto) {
-        this.id = id;
+    public Guarda(String nome, Posto posto) {
         this.nome = nome;
-        this.posto = posto;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Posto getPosto() {
-        return posto;
-    }
-
-    public void setPosto(Posto posto) {
         this.posto = posto;
     }
 }

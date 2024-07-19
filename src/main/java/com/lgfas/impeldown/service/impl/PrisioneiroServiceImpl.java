@@ -4,25 +4,25 @@ import com.lgfas.impeldown.dto.PrisioneiroDto;
 import com.lgfas.impeldown.exception.ResourceNotFoundException;
 import com.lgfas.impeldown.mapper.PrisioneiroMapper;
 import com.lgfas.impeldown.model.Prisioneiro;
-import com.lgfas.impeldown.repository.CrimeRepository;
 import com.lgfas.impeldown.repository.PrisioneiroRepository;
 import com.lgfas.impeldown.service.PrisioneiroService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PrisioneiroServiceImpl implements PrisioneiroService {
 
     private final PrisioneiroRepository prisioneiroRepository;
-    private final CrimeRepository crimeRepository;
 
-    public PrisioneiroServiceImpl(PrisioneiroRepository prisioneiroRepository, CrimeRepository crimeRepository) {
+    public PrisioneiroServiceImpl(PrisioneiroRepository prisioneiroRepository) {
         this.prisioneiroRepository = prisioneiroRepository;
-        this.crimeRepository = crimeRepository;
     }
+
 
     @Override
     public PrisioneiroDto cadastrarPrioneiro(PrisioneiroDto prisioneiroDto) {
-        crimeRepository.saveAll(prisioneiroDto.getCrimes());
 
         Prisioneiro prisioneiro = PrisioneiroMapper.fromDto(prisioneiroDto);
         Prisioneiro prisioneiroCadastrado = prisioneiroRepository.save(prisioneiro);
@@ -37,5 +37,14 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
                         new ResourceNotFoundException("Prisioneiro de ID " + id + " inexistente.")
                 );
         return PrisioneiroMapper.toDto(prisioneiro);
+    }
+
+    @Override
+    public List<PrisioneiroDto> buscarPrisioneiros() {
+
+        List<Prisioneiro> prisioneiros = prisioneiroRepository.findAll();
+        return prisioneiros.stream()
+                .map(PrisioneiroMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

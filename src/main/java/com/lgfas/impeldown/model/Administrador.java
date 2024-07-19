@@ -2,7 +2,13 @@ package com.lgfas.impeldown.model;
 
 import com.lgfas.impeldown.model.enums.Cargo;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter @Setter @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "tb_administrador")
 public class Administrador {
     @Id
@@ -12,35 +18,8 @@ public class Administrador {
     private String nome;
     private Cargo cargo;
 
-    public Administrador() {
-    }
-
-    public Administrador(Long id, String nome) {
-        this.id = id;
+    public Administrador(String nome, Cargo cargo) {
         this.nome = nome;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Cargo getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
 }

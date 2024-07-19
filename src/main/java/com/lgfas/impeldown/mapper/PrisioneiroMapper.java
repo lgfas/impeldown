@@ -10,18 +10,18 @@ public class PrisioneiroMapper {
                 prisioneiro.getNome(),
                 prisioneiro.getIdade(),
                 prisioneiro.getNivelPerigo(),
-                prisioneiro.getCrimes(),
+                prisioneiro.getCrime(),
                 prisioneiro.getNivelSeguranca()
         );
     }
 
     public static Prisioneiro fromDto(PrisioneiroDto prisioneiroDto) {
         return new Prisioneiro(
-                prisioneiroDto.getNome(),
-                prisioneiroDto.getIdade(),
-                prisioneiroDto.getNivelPerigo(),
-                prisioneiroDto.getCrimes(),
-                prisioneiroDto.getNivelSeguranca()
+                prisioneiroDto.nome(),
+                prisioneiroDto.idade(),
+                prisioneiroDto.nivelPerigo(),
+                prisioneiroDto.crime(),
+                prisioneiroDto.nivelSeguranca()
         );
     }
 }

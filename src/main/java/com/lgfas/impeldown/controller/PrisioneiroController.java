@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/prisioneiros")
 public class PrisioneiroController {
@@ -23,8 +25,14 @@ public class PrisioneiroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PrisioneiroDto> buscarPrisioneiro(@PathVariable Long id) {
+    public ResponseEntity<PrisioneiroDto> buscarPrisioneiroPorId(@PathVariable Long id) {
         PrisioneiroDto prisioneiroDto = prisioneiroService.buscarPrisioneiroPorId(id);
         return ResponseEntity.ok(prisioneiroDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PrisioneiroDto>> buscarPrisioneiros() {
+        List<PrisioneiroDto> prisioneiros = prisioneiroService.buscarPrisioneiros();
+        return ResponseEntity.ok(prisioneiros);
     }
 }
