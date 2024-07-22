@@ -35,4 +35,18 @@ public class PrisioneiroController {
         List<PrisioneiroDto> prisioneiros = prisioneiroService.buscarPrisioneiros();
         return ResponseEntity.ok(prisioneiros);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PrisioneiroDto> atualizarPrisioneiro(@PathVariable Long id, @RequestBody PrisioneiroDto prisioneiroAtualizado) {
+
+        PrisioneiroDto prisioneiroDto = prisioneiroService.atualizarPrisioneiro(id, prisioneiroAtualizado);
+
+        return ResponseEntity.ok(prisioneiroDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removerPrisioneiro(@PathVariable Long id) {
+        prisioneiroService.removerPrisioneiro(id);
+        return ResponseEntity.noContent().build();
+    }
 }

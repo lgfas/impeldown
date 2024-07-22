@@ -47,4 +47,31 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
                 .map(PrisioneiroMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public PrisioneiroDto atualizarPrisioneiro(Long id, PrisioneiroDto prisioneiroDto) {
+
+        Prisioneiro prisioneiro = prisioneiroRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Prisioneiro de ID " + id + " inexistente.")
+        );
+
+        prisioneiro.setNome(prisioneiroDto.nome());
+        prisioneiro.setIdade(prisioneiroDto.idade());
+        prisioneiro.setCrime(prisioneiroDto.crime());
+        prisioneiro.setNivelPerigo(prisioneiroDto.nivelPerigo());
+        prisioneiro.setNivelSeguranca(prisioneiroDto.nivelSeguranca());
+        Prisioneiro prisioneiroAtualizado = prisioneiroRepository.save(prisioneiro);
+
+        return PrisioneiroMapper.toDto(prisioneiroAtualizado);
+    }
+
+    @Override
+    public void removerPrisioneiro(Long id) {
+
+        Prisioneiro prisioneiro = prisioneiroRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Prisioneiro de ID " + id + " inexistente.")
+        );
+
+        prisioneiroRepository.deleteById(id);
+    }
 }

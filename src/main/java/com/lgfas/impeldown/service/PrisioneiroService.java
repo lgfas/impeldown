@@ -10,4 +10,8 @@ public interface PrisioneiroService {
     PrisioneiroDto buscarPrisioneiroPorId(Long id);
 
     List<PrisioneiroDto> buscarPrisioneiros();
+
+    PrisioneiroDto atualizarPrisioneiro(Long id,PrisioneiroDto prisioneiroDto);
+
+    void removerPrisioneiro(Long id);
 }
