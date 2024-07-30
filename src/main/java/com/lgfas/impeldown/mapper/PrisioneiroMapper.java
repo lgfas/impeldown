@@ -7,6 +7,7 @@ public class PrisioneiroMapper {
 
     public static PrisioneiroDto toDto(Prisioneiro prisioneiro) {
         return new PrisioneiroDto(
+                prisioneiro.getId(),
                 prisioneiro.getNome(),
                 prisioneiro.getIdade(),
                 prisioneiro.getNivelPerigo(),
@@ -17,6 +18,7 @@ public class PrisioneiroMapper {
 
     public static Prisioneiro fromDto(PrisioneiroDto prisioneiroDto) {
         return new Prisioneiro(
+                prisioneiroDto.id(),
                 prisioneiroDto.nome(),
                 prisioneiroDto.idade(),
                 prisioneiroDto.nivelPerigo(),

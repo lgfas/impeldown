@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/prisioneiros")
+@RequestMapping("/api/prisioneiros")
 public class PrisioneiroController {
 
     private final PrisioneiroService prisioneiroService;
