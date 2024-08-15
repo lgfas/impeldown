@@ -5,7 +5,7 @@ import com.lgfas.impeldown.dto.PrisioneiroDto;
 import java.util.List;
 
 public interface PrisioneiroService {
-    PrisioneiroDto cadastrarPrioneiro(PrisioneiroDto prisioneiroDto);
+    void cadastrarPrioneiro(PrisioneiroDto prisioneiroDto);
 
     PrisioneiroDto buscarPrisioneiroPorId(Long id);
 

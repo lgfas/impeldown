@@ -20,12 +20,4 @@ public class Prisioneiro {
     private String crime;
     @Enumerated(EnumType.STRING)
     private NivelSeguranca nivelSeguranca;
-
-    public Prisioneiro(String nome, Integer idade, NivelPerigo nivelPerigo, String crime, NivelSeguranca nivelSeguranca) {
-        this.nome = nome;
-        this.idade = idade;
-        this.nivelPerigo = nivelPerigo;
-        this.crime = crime;
-        this.nivelSeguranca = nivelSeguranca;
-    }
 }

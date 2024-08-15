@@ -21,8 +21,8 @@ public class PrisioneiroController {
 
     @PostMapping
     public ResponseEntity<PrisioneiroDto> cadastrarPrisioneiro(@RequestBody PrisioneiroDto prisioneiroDto) {
-        PrisioneiroDto prisioneiroCadastrado = prisioneiroService.cadastrarPrioneiro(prisioneiroDto);
-        return new ResponseEntity<>(prisioneiroCadastrado, HttpStatus.CREATED);
+        prisioneiroService.cadastrarPrioneiro(prisioneiroDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

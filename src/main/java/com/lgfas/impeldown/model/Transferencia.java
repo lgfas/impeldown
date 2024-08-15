@@ -21,11 +21,4 @@ public class Transferencia {
     private String nivelOrigem;
     private String nivelDestino;
     private LocalDateTime dataTransferencia;
-
-    public Transferencia(Prisioneiro prisioneiro, String nivelOrigem, String nivelDestino, LocalDateTime dataTransferencia) {
-        this.prisioneiro = prisioneiro;
-        this.nivelOrigem = nivelOrigem;
-        this.nivelDestino = nivelDestino;
-        this.dataTransferencia = dataTransferencia;
-    }
 }

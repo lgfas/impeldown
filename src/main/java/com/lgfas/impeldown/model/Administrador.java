@@ -16,10 +16,6 @@ public class Administrador {
     @Column(name = "id", nullable = false)
     private Long id;
     private String nome;
+    @Enumerated(EnumType.STRING)
     private Cargo cargo;
-
-    public Administrador(String nome, Cargo cargo) {
-        this.nome = nome;
-        this.cargo = cargo;
-    }
 }

@@ -16,10 +16,6 @@ public class Guarda {
     @Column(name = "id", nullable = false)
     private Long id;
     private String nome;
+    @Enumerated(EnumType.STRING)
     private Posto posto;
-
-    public Guarda(String nome, Posto posto) {
-        this.nome = nome;
-        this.posto = posto;
-    }
 }
