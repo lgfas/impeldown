@@ -32,14 +32,12 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
     @Override
     public PrisioneiroDto buscarPrisioneiroPorId(Long id) {
 
-        Prisioneiro prisioneiro = null;
         try {
-            prisioneiro = prisioneiroRepository.buscarPrisioneiroPorId(id);
+            Prisioneiro prisioneiro = prisioneiroRepository.buscarPrisioneiroPorId(id);
+            return PrisioneiroMapper.toDto(prisioneiro);
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Prisioneiro de ID " + id + " inexistente.");
         }
-
-        return PrisioneiroMapper.toDto(prisioneiro);
     }
 
     @Override
@@ -56,6 +54,10 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
 
         Prisioneiro prisioneiro = prisioneiroRepository.buscarPrisioneiroPorId(id);
 
+        if (prisioneiro == null) {
+            throw new ResourceNotFoundException("Prisioneiro de ID " + id + " inexistente.");
+        }
+
         prisioneiro.setNome(prisioneiroDto.nome());
         prisioneiro.setIdade(prisioneiroDto.idade());
         prisioneiro.setCrime(prisioneiroDto.crime());
@@ -71,6 +73,10 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
     public void removerPrisioneiro(Long id) {
 
         Prisioneiro prisioneiro = prisioneiroRepository.buscarPrisioneiroPorId(id);
+
+        if (prisioneiro == null) {
+            throw new ResourceNotFoundException("Prisioneiro de ID " + id + " inexistente.");
+        }
 
         prisioneiroRepository.removerPrisioneiro(id);
     }

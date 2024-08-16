@@ -31,15 +31,12 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     public AdministradorDto buscarAdministradorPorId(Long id) {
 
-        Administrador administrador = null;
-
         try {
-            administrador = administradorRepository.buscarAdministradorPorId(id);
+            Administrador administrador = administradorRepository.buscarAdministradorPorId(id);
+            return AdministradorMapper.toDto(administrador);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Administrador de ID " + id + "inexistente.");
+            throw new ResourceNotFoundException("Administrador de ID " + id + "     inexistente.");
         }
-
-        return AdministradorMapper.toDto(administrador);
     }
 
     @Override
@@ -56,6 +53,10 @@ public class AdministradorServiceImpl implements AdministradorService {
 
         Administrador administrador = administradorRepository.buscarAdministradorPorId(id);
 
+        if (administrador == null) {
+            throw new ResourceNotFoundException("Administrador de ID " + id + "     inexistente.");
+        }
+
         administrador.setNome(administradorDto.nome());
         administrador.setCargo(administradorDto.cargo());
 
@@ -68,6 +69,10 @@ public class AdministradorServiceImpl implements AdministradorService {
     public void removerAdministrador(Long id) {
 
         Administrador administrador = administradorRepository.buscarAdministradorPorId(id);
+
+        if (administrador == null) {
+            throw new ResourceNotFoundException("Administrador de ID " + id + "     inexistente.");
+        }
 
         administradorRepository.removerAdministrador(id);
     }
