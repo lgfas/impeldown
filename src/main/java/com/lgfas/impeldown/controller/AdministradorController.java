@@ -1,6 +1,7 @@
 package com.lgfas.impeldown.controller;
 
 import com.lgfas.impeldown.dto.AdministradorDto;
+import com.lgfas.impeldown.model.enums.Cargo;
 import com.lgfas.impeldown.service.AdministradorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +48,11 @@ public class AdministradorController {
     public ResponseEntity<AdministradorDto> removerAdministrador(@PathVariable Long id) {
         administradorService.removerAdministrador(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/cargos")
+    public ResponseEntity<List<Cargo>> buscarCargos() {
+        List<Cargo> cargos = administradorService.buscarCargos();
+        return ResponseEntity.ok(cargos);
     }
 }

@@ -1,6 +1,7 @@
 package com.lgfas.impeldown.controller;
 
 import com.lgfas.impeldown.dto.GuardaDto;
+import com.lgfas.impeldown.model.enums.Posto;
 import com.lgfas.impeldown.service.GuardaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +48,11 @@ public class GuardaController {
     public ResponseEntity<Void> removerGuarda(@PathVariable Long id) {
         guardaService.removerGuarda(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/postos")
+    public ResponseEntity<List<Posto>> buscarPostos() {
+        List<Posto> postos = guardaService.buscarPostos();
+        return ResponseEntity.ok(postos);
     }
 }

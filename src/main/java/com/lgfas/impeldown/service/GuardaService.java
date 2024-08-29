@@ -1,6 +1,7 @@
 package com.lgfas.impeldown.service;
 
 import com.lgfas.impeldown.dto.GuardaDto;
+import com.lgfas.impeldown.model.enums.Posto;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface GuardaService {
     GuardaDto atualizarGuarda(Long id, GuardaDto guardaDto);
 
     void removerGuarda(Long id);
+
+    List<Posto> buscarPostos();
 }

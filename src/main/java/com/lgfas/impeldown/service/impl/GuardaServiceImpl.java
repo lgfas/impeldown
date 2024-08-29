@@ -4,11 +4,13 @@ import com.lgfas.impeldown.dto.GuardaDto;
 import com.lgfas.impeldown.exception.ResourceNotFoundException;
 import com.lgfas.impeldown.mapper.GuardaMapper;
 import com.lgfas.impeldown.model.Guarda;
+import com.lgfas.impeldown.model.enums.Posto;
 import com.lgfas.impeldown.repository.GuardaRepository;
 import com.lgfas.impeldown.service.GuardaService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,6 +74,11 @@ public class GuardaServiceImpl implements GuardaService {
         }
 
         guardaRepository.removerGuarda(id);
+    }
+
+    @Override
+    public List<Posto> buscarPostos() {
+        return Arrays.asList(Posto.values());
     }
 
 

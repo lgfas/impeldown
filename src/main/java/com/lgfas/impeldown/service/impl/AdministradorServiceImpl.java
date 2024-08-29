@@ -4,11 +4,13 @@ import com.lgfas.impeldown.dto.AdministradorDto;
 import com.lgfas.impeldown.exception.ResourceNotFoundException;
 import com.lgfas.impeldown.mapper.AdministradorMapper;
 import com.lgfas.impeldown.model.Administrador;
+import com.lgfas.impeldown.model.enums.Cargo;
 import com.lgfas.impeldown.repository.AdministradorRepository;
 import com.lgfas.impeldown.service.AdministradorService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,5 +77,10 @@ public class AdministradorServiceImpl implements AdministradorService {
         }
 
         administradorRepository.removerAdministrador(id);
+    }
+
+    @Override
+    public List<Cargo> buscarCargos() {
+        return Arrays.asList(Cargo.values());
     }
 }

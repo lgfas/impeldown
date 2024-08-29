@@ -4,6 +4,7 @@ import com.lgfas.impeldown.model.Prisioneiro;
 import com.lgfas.impeldown.model.enums.NivelPerigo;
 import com.lgfas.impeldown.model.enums.NivelSeguranca;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +16,17 @@ public class PrisioneiroRepository {
 
     public PrisioneiroRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    private static RowMapper<Prisioneiro> getPrisioneiroRowMapper() {
+        return (rs, rowNum) -> new Prisioneiro(
+                rs.getLong("id"),
+                rs.getString("nome"),
+                rs.getInt("idade"),
+                NivelPerigo.valueOf(rs.getString("nivelPerigo")),
+                rs.getString("crime"),
+                NivelSeguranca.valueOf(rs.getString("nivelSeguranca"))
+        );
     }
 
     public void cadastrarPrisioneiro(Prisioneiro prisioneiro) {
@@ -55,45 +67,36 @@ public class PrisioneiroRepository {
 
         return jdbcTemplate.queryForObject(
                 sql,
-                (rs, rowNum) -> new Prisioneiro(
-                        rs.getLong("id"),
-                        rs.getString("nome"),
-                        rs.getInt("idade"),
-                        NivelPerigo.valueOf(rs.getString("nivelPerigo")),
-                        rs.getString("crime"),
-                        NivelSeguranca.valueOf(rs.getString("nivelSeguranca"))
-                ),
+                getPrisioneiroRowMapper(),
                 id
         );
     }
 
-    public List<Prisioneiro> buscarPrisioneiros() {
-        String sql = """
-                
-                SELECT
-                    tb_prisioneiro.id as id,
-                    tb_prisioneiro.nome as nome,
-                    tb_prisioneiro.idade as idade,
-                    tb_prisioneiro.nivel_perigo as nivelPerigo,
-                    tb_prisioneiro.crime as crime,
-                    tb_prisioneiro.nivel_seguranca as nivelSeguranca
-                FROM
-                    tb_prisioneiro
-                
-                """;
+    public List<Prisioneiro> buscarPrisioneiros(int pagina, int tamanhoPagina) {
+        // Calcula o valor do offset
+        int offset = (pagina - 1) * tamanhoPagina;
 
+        String sql = """
+            SELECT
+                tb_prisioneiro.id as id,
+                tb_prisioneiro.nome as nome,
+                tb_prisioneiro.idade as idade,
+                tb_prisioneiro.nivel_perigo as nivelPerigo,
+                tb_prisioneiro.crime as crime,
+                tb_prisioneiro.nivel_seguranca as nivelSeguranca
+            FROM
+                tb_prisioneiro
+            LIMIT ? OFFSET ?
+            """;
+
+        // Executa a consulta com paginação
         return jdbcTemplate.query(
                 sql,
-                (rs, rowNum) -> new Prisioneiro(
-                        rs.getLong("id"),
-                        rs.getString("nome"),
-                        rs.getInt("idade"),
-                        NivelPerigo.valueOf(rs.getString("nivelPerigo")),
-                        rs.getString("crime"),
-                        NivelSeguranca.valueOf(rs.getString("nivelSeguranca"))
-                )
+                new Object[]{tamanhoPagina, offset},
+                getPrisioneiroRowMapper()
         );
     }
+
 
     public void autalizarPrisioneiro(Long id, Prisioneiro prisioneiro) {
         String sql = """

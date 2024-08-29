@@ -13,11 +13,16 @@ public class Prisioneiro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private Integer idade;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private NivelPerigo nivelPerigo;
+    @Column(nullable = false)
     private String crime;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private NivelSeguranca nivelSeguranca;
 }

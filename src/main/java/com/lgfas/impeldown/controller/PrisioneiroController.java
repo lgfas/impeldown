@@ -1,6 +1,8 @@
 package com.lgfas.impeldown.controller;
 
 import com.lgfas.impeldown.dto.PrisioneiroDto;
+import com.lgfas.impeldown.model.enums.NivelPerigo;
+import com.lgfas.impeldown.model.enums.NivelSeguranca;
 import com.lgfas.impeldown.service.PrisioneiroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +34,11 @@ public class PrisioneiroController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PrisioneiroDto>> buscarPrisioneiros() {
-        List<PrisioneiroDto> prisioneiros = prisioneiroService.buscarPrisioneiros();
+    public ResponseEntity<List<PrisioneiroDto>> buscarPrisioneiros(
+            @RequestParam(required = false, defaultValue = "1") int pagina,
+            @RequestParam(required = false, defaultValue = "10") int tamanhoPagina) {
+
+        List<PrisioneiroDto> prisioneiros = prisioneiroService.buscarPrisioneiros(pagina, tamanhoPagina);
         return ResponseEntity.ok(prisioneiros);
     }
 
@@ -49,5 +54,17 @@ public class PrisioneiroController {
     public ResponseEntity<Void> removerPrisioneiro(@PathVariable Long id) {
         prisioneiroService.removerPrisioneiro(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/niveisPerigo")
+    public ResponseEntity<List<NivelPerigo>> buscarNiveisPerigo() {
+        List<NivelPerigo> nivelPerigos = prisioneiroService.buscarNiveisPerigo();
+        return ResponseEntity.ok(nivelPerigos);
+    }
+
+    @GetMapping("/niveisSeguranca")
+    public ResponseEntity<List<NivelSeguranca>> buscarNiveisSeguranca() {
+        List<NivelSeguranca> nivelSegurancas = prisioneiroService.buscarNiveisSeguranca();
+        return ResponseEntity.ok(nivelSegurancas);
     }
 }

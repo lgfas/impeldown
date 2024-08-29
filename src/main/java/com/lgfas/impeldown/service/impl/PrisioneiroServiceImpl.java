@@ -4,11 +4,15 @@ import com.lgfas.impeldown.dto.PrisioneiroDto;
 import com.lgfas.impeldown.exception.ResourceNotFoundException;
 import com.lgfas.impeldown.mapper.PrisioneiroMapper;
 import com.lgfas.impeldown.model.Prisioneiro;
+import com.lgfas.impeldown.model.enums.NivelPerigo;
+import com.lgfas.impeldown.model.enums.NivelSeguranca;
 import com.lgfas.impeldown.repository.PrisioneiroRepository;
 import com.lgfas.impeldown.service.PrisioneiroService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +30,9 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
     public void cadastrarPrioneiro(PrisioneiroDto prisioneiroDto) {
 
         Prisioneiro prisioneiro = PrisioneiroMapper.fromDto(prisioneiroDto);
+
+        verificarIdade(prisioneiro.getIdade());
+
         prisioneiroRepository.cadastrarPrisioneiro(prisioneiro);
     }
 
@@ -41,11 +48,12 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
     }
 
     @Override
-    public List<PrisioneiroDto> buscarPrisioneiros() {
+    public List<PrisioneiroDto> buscarPrisioneiros(int pagina, int tamanhoPagina) {
 
-        List<Prisioneiro> prisioneiros = prisioneiroRepository.buscarPrisioneiros();
+        List<Prisioneiro> prisioneiros = prisioneiroRepository.buscarPrisioneiros(pagina,tamanhoPagina);
         return prisioneiros.stream()
                 .map(PrisioneiroMapper::toDto)
+                .sorted(Comparator.comparing(PrisioneiroDto::id).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -57,6 +65,8 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
         if (prisioneiro == null) {
             throw new ResourceNotFoundException("Prisioneiro de ID " + id + " inexistente.");
         }
+
+        verificarIdade(prisioneiro.getIdade());
 
         prisioneiro.setNome(prisioneiroDto.nome());
         prisioneiro.setIdade(prisioneiroDto.idade());
@@ -79,5 +89,21 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
         }
 
         prisioneiroRepository.removerPrisioneiro(id);
+    }
+
+    @Override
+    public List<NivelPerigo> buscarNiveisPerigo() {
+        return Arrays.asList(NivelPerigo.values());
+    }
+
+    @Override
+    public List<NivelSeguranca> buscarNiveisSeguranca() {
+        return Arrays.asList(NivelSeguranca.values());
+    }
+
+    public void verificarIdade(Integer idade) {
+        if (idade <= 0) {
+            throw new IllegalArgumentException("Idade inválida");
+        }
     }
 }
