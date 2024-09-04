@@ -1,5 +1,6 @@
 package com.lgfas.impeldown.model;
 
+import com.lgfas.impeldown.model.enums.NivelSeguranca;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,9 @@ public class Transferencia {
     @ManyToOne
     @JoinColumn(name = "prisioneiro_id")
     private Prisioneiro prisioneiro;
-    private String nivelOrigem;
-    private String nivelDestino;
+    @Enumerated(EnumType.STRING)
+    private NivelSeguranca nivelOrigem;
+    @Enumerated(EnumType.STRING)
+    private NivelSeguranca nivelDestino;
     private LocalDateTime dataTransferencia;
 }

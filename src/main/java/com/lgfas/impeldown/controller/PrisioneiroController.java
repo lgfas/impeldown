@@ -23,7 +23,7 @@ public class PrisioneiroController {
 
     @PostMapping
     public ResponseEntity<PrisioneiroDto> cadastrarPrisioneiro(@RequestBody PrisioneiroDto prisioneiroDto) {
-        prisioneiroService.cadastrarPrioneiro(prisioneiroDto);
+        prisioneiroService.cadastrarPrisioneiro(prisioneiroDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

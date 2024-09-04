@@ -7,7 +7,7 @@ import com.lgfas.impeldown.model.enums.NivelSeguranca;
 import java.util.List;
 
 public interface PrisioneiroService {
-    void cadastrarPrioneiro(PrisioneiroDto prisioneiroDto);
+    void cadastrarPrisioneiro(PrisioneiroDto prisioneiroDto);
 
     PrisioneiroDto buscarPrisioneiroPorId(Long id);
 

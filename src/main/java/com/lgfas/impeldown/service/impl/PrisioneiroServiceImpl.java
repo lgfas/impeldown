@@ -1,13 +1,17 @@
 package com.lgfas.impeldown.service.impl;
 
 import com.lgfas.impeldown.dto.PrisioneiroDto;
+import com.lgfas.impeldown.dto.TransferenciaDto;
 import com.lgfas.impeldown.exception.ResourceNotFoundException;
 import com.lgfas.impeldown.mapper.PrisioneiroMapper;
+import com.lgfas.impeldown.mapper.TransferenciaMapper;
 import com.lgfas.impeldown.model.Prisioneiro;
+import com.lgfas.impeldown.model.Transferencia;
 import com.lgfas.impeldown.model.enums.NivelPerigo;
 import com.lgfas.impeldown.model.enums.NivelSeguranca;
 import com.lgfas.impeldown.repository.PrisioneiroRepository;
 import com.lgfas.impeldown.service.PrisioneiroService;
+import com.lgfas.impeldown.service.TransferenciaService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +24,16 @@ import java.util.stream.Collectors;
 public class PrisioneiroServiceImpl implements PrisioneiroService {
 
     private final PrisioneiroRepository prisioneiroRepository;
+    private final TransferenciaService transferenciaService;
 
-    public PrisioneiroServiceImpl(PrisioneiroRepository prisioneiroRepository) {
+    public PrisioneiroServiceImpl(PrisioneiroRepository prisioneiroRepository, TransferenciaService transferenciaService) {
         this.prisioneiroRepository = prisioneiroRepository;
+        this.transferenciaService = transferenciaService;
     }
 
 
     @Override
-    public void cadastrarPrioneiro(PrisioneiroDto prisioneiroDto) {
+    public void cadastrarPrisioneiro(PrisioneiroDto prisioneiroDto) {
 
         Prisioneiro prisioneiro = PrisioneiroMapper.fromDto(prisioneiroDto);
 
@@ -64,6 +70,15 @@ public class PrisioneiroServiceImpl implements PrisioneiroService {
 
         if (prisioneiro == null) {
             throw new ResourceNotFoundException("Prisioneiro de ID " + id + " inexistente.");
+        }
+
+        if (!prisioneiro.getNivelSeguranca().equals(prisioneiroDto.nivelSeguranca())) {
+            Transferencia transferencia = new Transferencia();
+            transferencia.setPrisioneiro(prisioneiro);
+            transferencia.setNivelOrigem(prisioneiro.getNivelSeguranca());
+            transferencia.setNivelDestino(prisioneiroDto.nivelSeguranca());
+            TransferenciaDto transferenciaDto = TransferenciaMapper.toDto(transferencia);
+            transferenciaService.cadastrarTransferencia(transferenciaDto);
         }
 
         verificarIdade(prisioneiro.getIdade());
