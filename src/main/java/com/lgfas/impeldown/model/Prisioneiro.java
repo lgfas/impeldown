@@ -25,4 +25,8 @@ public class Prisioneiro {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private NivelSeguranca nivelSeguranca;
+
+    public Prisioneiro(Long id) {
+        this.id = id;
+    }
 }
