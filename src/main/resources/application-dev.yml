@@ -9,8 +9,3 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://idp.example.com/issuer
